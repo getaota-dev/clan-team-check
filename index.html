@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOMMELIER vs MELIO | TEAM CHECK</title>
+<style>
+:root{
+  --bg:#07090d; --panel:#10141c; --text:#f4f7fb; --muted:#8f9aaa;
+  --red:#ff3158; --green:#40e0a0; --line:#252c38;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; background:
+  radial-gradient(circle at 50% -10%, #202938 0, transparent 45%),
+  linear-gradient(180deg,#080a0f,#050609);
+  color:var(--text); font-family:Inter,"Noto Sans JP",sans-serif;
+  display:flex; justify-content:center;
+}
+.app{width:min(100%,520px); min-height:100vh; padding:22px 18px 35px; display:flex; flex-direction:column}
+.screen{display:none; flex:1; animation:fade .35s ease}
+.screen.active{display:flex; flex-direction:column}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.logo{font-weight:900; letter-spacing:.12em; font-size:13px; color:#aeb7c5}
+.hero{margin:auto 0; text-align:center}
+h1{font-size:42px; line-height:.98; margin:15px 0 12px; letter-spacing:-.04em}
+h2{font-size:29px;margin:8px 0 12px}
+.sub{color:var(--muted);line-height:1.7}
+.vs{display:flex; align-items:center; justify-content:center; gap:16px; margin:30px 0}
+.team{font-size:20px;font-weight:900;letter-spacing:.04em}
+.red{color:var(--red)} .green{color:var(--green)}
+.divider{width:1px;height:42px;background:var(--line)}
+button,select{
+  width:100%; border:1px solid var(--line); border-radius:14px;
+  background:#121722;color:white;padding:16px;font-size:16px;
+}
+button{cursor:pointer;font-weight:800}
+button.primary{background:white;color:#080a0f;border:0}
+button.ghost{margin-top:10px;background:transparent}
+select{appearance:auto}
+.card{background:rgba(16,20,28,.88);border:1px solid var(--line);border-radius:20px;padding:20px;margin:18px 0}
+.label{font-size:11px;letter-spacing:.15em;color:var(--muted);font-weight:800;margin-bottom:8px}
+.progress{height:8px;background:#171c25;border-radius:99px;overflow:hidden;margin:16px 0}
+.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--green));transition:width .4s}
+.stat{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1d232d}
+.stat:last-child{border:0}
+.bigresult{text-align:center;margin:auto 0}
+.resultbox{border-radius:28px;padding:42px 18px;margin:20px 0;border:1px solid}
+.resultbox.redbox{border-color:#8c2038;background:radial-gradient(circle,#31121b,#100b0e)}
+.resultbox.greenbox{border-color:#227a5a;background:radial-gradient(circle,#102d25,#0a100e)}
+.resultteam{font-size:38px;font-weight:1000;letter-spacing:.04em}
+.count{font-size:12px;color:var(--muted);margin-top:8px}
+.countdown{font-size:100px;font-weight:1000;text-align:center;margin:auto}
+.analysis{text-align:center;margin:auto 0}
+.loader{width:72px;height:72px;border:4px solid #252c38;border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 28px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.analysisline{min-height:28px;font-weight:800;letter-spacing:.04em}
+.reason{line-height:1.8;color:#c4cbd5}
+.rosters{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.roster{padding:15px;border-radius:16px;border:1px solid var(--line)}
+.roster h3{margin:0 0 10px}
+.member{font-size:13px;padding:7px 0;border-bottom:1px solid #202631}
+.member:last-child{border:0}
+.footer{font-size:11px;color:#626c7b;text-align:center;margin-top:20px}
+
+/* Battle / Clash-style atmosphere */
+body{
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255,80,25,.16), transparent 30%),
+    radial-gradient(circle at 12% 70%, rgba(255,30,70,.12), transparent 28%),
+    radial-gradient(circle at 88% 65%, rgba(40,170,255,.10), transparent 28%),
+    #050608;
+}
+.battle-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.battle-bg:before{
+  content:"";position:absolute;inset:-15%;
+  background:
+    repeating-linear-gradient(115deg,transparent 0 55px,rgba(255,255,255,.025) 56px 58px),
+    radial-gradient(circle at 50% 55%,rgba(255,110,30,.13),transparent 32%),
+    radial-gradient(circle at 20% 80%,rgba(255,35,65,.12),transparent 24%),
+    radial-gradient(circle at 80% 80%,rgba(20,130,255,.10),transparent 24%);
+  transform:rotate(-4deg);
+}
+.battle-bg:after{
+  content:"";position:absolute;left:-10%;right:-10%;bottom:5%;
+  height:42%;
+  background:
+    linear-gradient(155deg,transparent 0 35%,rgba(0,0,0,.82) 36% 100%),
+    linear-gradient(25deg,transparent 0 35%,rgba(0,0,0,.7) 36% 100%);
+  clip-path:polygon(0 55%,10% 42%,18% 53%,29% 28%,38% 48%,48% 18%,58% 43%,70% 24%,80% 49%,90% 30%,100% 48%,100% 100%,0 100%);
+}
+.embers{
+  position:absolute;inset:0;opacity:.55;
+  background-image:
+    radial-gradient(circle,rgba(255,177,77,.9) 0 1px,transparent 2px),
+    radial-gradient(circle,rgba(255,70,45,.7) 0 1px,transparent 2px);
+  background-size:73px 91px,117px 133px;
+  animation:embers 12s linear infinite;
+}
+@keyframes embers{from{transform:translateY(40px)}to{transform:translateY(-120px)}}
+.vignette{position:absolute;inset:0;background:radial-gradient(circle,transparent 35%,rgba(0,0,0,.62) 100%)}
+.app{position:relative}
+.screen{cursor:pointer}
+button,select{cursor:pointer;position:relative;z-index:3}
+.card{box-shadow:0 10px 35px rgba(0,0,0,.32)}
+.resultbox{box-shadow:0 0 45px rgba(255,70,50,.12)}
+.redbox{box-shadow:0 0 55px rgba(255,49,88,.2)}
+.greenbox{box-shadow:0 0 55px rgba(64,224,160,.16)}
+.screen.active:after{
+  content:"TAP TO CONTINUE";
+  position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+  font-size:9px;letter-spacing:.2em;color:#697382;pointer-events:none;
+}
+#select.active:after,#status.active:after{display:none}
+@media (min-width:700px){.app{max-width:560px}}
+</style>
+</head>
+<body>
+<div class="battle-bg"><div class="embers"></div><div class="vignette"></div></div>
+<div class="app">
+
+<section id="home" class="screen active">
+  <div class="logo">CLAN WAR // SPECIAL EVENT</div>
+  <div class="hero">
+    <div class="label">TEAM DETERMINATION</div>
+    <h1>SOMMELIER<br><span style="font-size:26px;color:#707987">VS</span><br>MELIO</h1>
+    <div class="vs"><span class="team red">ソムリエ</span><span class="divider"></span><span class="team green">メリオ</span></div>
+    <p class="sub">紅白戦・運命の判定<br>あなたの所属チームを確認してください。</p>
+    <button class="primary" onclick="show('select')">TEAM CHECK</button>
+  </div>
+  <div class="footer">30 PLAYERS / 15 vs 15</div>
+</section>
+
+<section id="select" class="screen">
+  <div class="logo">TEAM CHECK</div>
+  <div class="hero">
+    <div class="label">PLAYER IDENTIFICATION</div>
+    <h2>自分の名前を選択</h2>
+    <p class="sub">選択した後、あなたのチームを判定します。</p>
+    <div class="card">
+      <select id="player">
+        <option value="">プレイヤーを選択...</option>
+      </select>
+    </div>
+    <button class="primary" onclick="startCheck()">判定開始</button>
+    <button class="ghost" onclick="show('home')">戻る</button>
+  </div>
+</section>
+
+<section id="analysis" class="screen">
+  <div class="analysis">
+    <div class="loader"></div>
+    <div class="label">SYSTEM ANALYSIS</div>
+    <div id="analysisLine" class="analysisline">PLAYER IDENTIFIED...</div>
+  </div>
+</section>
+
+<section id="countdown" class="screen">
+  <div class="countdown" id="num">3</div>
+</section>
+
+<section id="result" class="screen">
+  <div class="bigresult">
+    <div class="label">YOUR TEAM HAS BEEN DECIDED</div>
+    <div id="resultBox" class="resultbox">
+      <div id="resultTeam" class="resultteam"></div>
+      <div class="count">TEAM ASSIGNMENT CONFIRMED</div>
+    </div>
+    <button class="primary" onclick="show('why')">WHY THIS TEAM?</button>
+    <button class="ghost" onclick="show('status')">現在の確認状況を見る</button>
+  </div>
+</section>
+
+<section id="why" class="screen">
+  <div class="logo">WHY THIS TEAM?</div>
+  <div class="hero">
+    <div class="label">FORMATION LOGIC</div>
+    <h2>なぜこのチームなのか？</h2>
+    <div class="card">
+      <div class="reason">
+        今回のチーム分けは完全なランダムではありません。<br><br>
+        <b>上位 15人 / 中位 10人 / 下位 5人</b> の構成をもとに、
+        それぞれのチームが大きく偏らないように編成されています。<br><br>
+        つまり、あなたの所属先は「その場のくじ」ではなく、
+        <b>紅白戦として成立するためのバランス</b>を考えて決定されています。
+      </div>
+    </div>
+    <button class="primary" onclick="show('status')">確認状況を見る</button>
+  </div>
+</section>
+
+<section id="status" class="screen">
+  <div class="logo">CHECK STATUS</div>
+  <div class="hero">
+    <div class="label">PLAYER CONFIRMATION</div>
+    <h2><span id="checked">0</span> / 30</h2>
+    <p class="sub">全員が確認すると、最終チーム編成が公開されます。</p>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="card">
+      <div class="stat"><span>ソムリエ</span><b id="redCount">0</b></div>
+      <div class="stat"><span>メリオ</span><b id="greenCount">0</b></div>
+      <div class="stat"><span>未確認</span><b id="unknown">30</b></div>
+    </div>
+    <button class="primary" onclick="confirmAndReveal()">確認を完了する</button>
+    <button class="ghost" onclick="show('home')">トップへ</button>
+  </div>
+</section>
+
+<section id="final" class="screen">
+  <div class="logo">FINAL REVEAL</div>
+  <div class="hero">
+    <div class="label">30 / 30 PLAYERS CONFIRMED</div>
+    <h2>全チーム公開</h2>
+    <div class="rosters">
+      <div class="roster">
+        <h3 class="red">ソムリエ</h3>
+        <div id="redRoster"></div>
+      </div>
+      <div class="roster">
+        <h3 class="green">メリオ</h3>
+        <div id="greenRoster"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="label">REWARDS</div>
+      <div class="stat"><span>🏆 勝利チーム</span><b>PASS</b></div>
+      <div class="stat"><span>⚔ BEST ATTACKER</span><b>個人賞</b></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+// 仮データ：01〜15 = 上位、16〜25 = 中位、26〜30 = 下位
+const players = Array.from({length:30},(_,i)=>({
+  id:String(i+1).padStart(2,'0'),
+  name:`PLAYER ${String(i+1).padStart(2,'0')}`,
+  level:i<15?'上位':i<25?'中位':'下位'
+}));
+
+// 試作の固定チーム。
+// 後から実際の30人と実力区分を入れて、最終編成に差し替え可能。
+const redIds = ['01','02','04','06','08','10','12','14','16','18','20','22','26','28','30'];
+const greenIds = players.map(p=>p.id).filter(id=>!redIds.includes(id));
+
+const sel=document.getElementById('player');
+players.forEach(p=>{
+  const o=document.createElement('option');
+  o.value=p.id;o.textContent=`${p.id}  ${p.name}`;
+  sel.appendChild(o);
+});
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='status') updateStatus();
+  if(id==='final') buildRosters();
+}
+
+let current=null;
+function startCheck(){
+  current=players.find(p=>p.id===sel.value);
+  if(!current){alert('プレイヤーを選択してください');return;}
+  show('analysis');
+  const lines=['PLAYER IDENTIFIED...','SKILL BALANCE CHECK...','TEAM STRUCTURE ANALYZING...','FINAL DECISION...'];
+  let i=0;
+  const line=document.getElementById('analysisLine');
+  line.textContent=lines[0];
+  const timer=setInterval(()=>{
+    i++;
+    if(i<lines.length) line.textContent=lines[i];
+    else {clearInterval(timer); setTimeout(()=>runCountdown(),450);}
+  },650);
+}
+function runCountdown(){
+  show('countdown');
+  let n=3;
+  document.getElementById('num').textContent=n;
+  const t=setInterval(()=>{
+    n--;
+    if(n<=0){clearInterval(t);setTimeout(reveal,350);}
+    else document.getElementById('num').textContent=n;
+  },800);
+}
+function reveal(){
+  const team=redIds.includes(current.id)?'ソムリエチーム':'メリオチーム';
+  const box=document.getElementById('resultBox');
+  box.className='resultbox '+(team==='ソムリエチーム'?'redbox':'greenbox');
+  document.getElementById('resultTeam').textContent=team;
+  show('result');
+}
+function updateStatus(){
+  const checked=Number(localStorage.getItem('checkedCount')||0);
+  document.getElementById('checked').textContent=checked;
+  document.getElementById('bar').style.width=(checked/30*100)+'%';
+  // 試作品では、確認数に応じた演出用表示
+  const red=Math.round(checked/2), green=checked-red;
+  document.getElementById('redCount').textContent=red;
+  document.getElementById('greenCount').textContent=green;
+  document.getElementById('unknown').textContent=30-checked;
+}
+function confirmAndReveal(){
+  let checked=Number(localStorage.getItem('checkedCount')||0);
+  if(checked<30) checked++;
+  localStorage.setItem('checkedCount',checked);
+  if(checked>=30) show('final'); else updateStatus();
+}
+function buildRosters(){
+  const make=(ids)=>{
+    return ids.map(id=>{
+      const p=players.find(x=>x.id===id);
+      return `<div class="member">${p.id}　${p.name}</div>`;
+    }).join('');
+  };
+  document.getElementById('redRoster').innerHTML=make(redIds);
+  document.getElementById('greenRoster').innerHTML=make(greenIds);
+}
+// Mobile-friendly: tap anywhere on non-interactive areas to advance.
+// Buttons, select boxes and links keep their normal behavior.
+const tapOrder = ['home','select','analysis','countdown','result','why','status','final'];
+document.querySelectorAll('.screen').forEach(screen=>{
+  screen.addEventListener('click', e=>{
+    if(e.target.closest('button,select,a,input')) return;
+    const id=screen.id;
+    if(id==='home') show('select');
+    else if(id==='result') show('why');
+    else if(id==='why') show('status');
+    else if(id==='final') show('home');
+  });
+});
+
+</script>
+</body>
+</html>
