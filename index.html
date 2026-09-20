@@ -1,149 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOMMELIER vs MELIO | 11 PLAYER PREVIEW</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070709">
+<title>SOMMELIER vs MELIO — FINAL</title>
 <style>
-:root{
-  --bg:#07090d; --panel:#10141c; --text:#f4f7fb; --muted:#8f9aaa;
-  --red:#ff3158; --green:#40e0a0; --line:#252c38;
+:root {
+  --bg:#050507; --text:#f7f7fb; --muted:#aeb7c5; --line:rgba(255,255,255,.12);
+  --white:#f7fbff; --ice:#cfe4ff; --red:#ff382e; --red2:#ff7a43; --gold:#ffd66e;
 }
-*{box-sizing:border-box}
-body{
-  margin:0; min-height:100vh; background:
-  radial-gradient(circle at 50% -10%, #202938 0, transparent 45%),
-  linear-gradient(180deg,#080a0f,#050609);
-  color:var(--text); font-family:Inter,"Noto Sans JP",sans-serif;
-  display:flex; justify-content:center;
-}
-.app{width:min(100%,520px); min-height:100vh; padding:22px 18px 35px; display:flex; flex-direction:column}
-.screen{display:none; flex:1; animation:fade .35s ease}
-.screen.active{display:flex; flex-direction:column}
-@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.logo{font-weight:900; letter-spacing:.12em; font-size:13px; color:#aeb7c5}
-.hero{margin:auto 0; text-align:center}
-h1{font-size:42px; line-height:.98; margin:15px 0 12px; letter-spacing:-.04em}
-h2{font-size:29px;margin:8px 0 12px}
-.sub{color:var(--muted);line-height:1.7}
-.vs{display:flex; align-items:center; justify-content:center; gap:16px; margin:30px 0}
-.team{font-size:20px;font-weight:900;letter-spacing:.04em}
-.red{color:var(--red)} .green{color:var(--green)}
-.divider{width:1px;height:42px;background:var(--line)}
-button,select{
-  width:100%; border:1px solid var(--line); border-radius:14px;
-  background:#121722;color:white;padding:16px;font-size:16px;
-}
-button{cursor:pointer;font-weight:800}
-button.primary{background:white;color:#080a0f;border:0}
-button.ghost{margin-top:10px;background:transparent}
-select{appearance:auto}
-.card{background:rgba(16,20,28,.88);border:1px solid var(--line);border-radius:20px;padding:20px;margin:18px 0}
-.label{font-size:11px;letter-spacing:.15em;color:var(--muted);font-weight:800;margin-bottom:8px}
-.progress{height:8px;background:#171c25;border-radius:99px;overflow:hidden;margin:16px 0}
-.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--green));transition:width .4s}
-.stat{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1d232d}
-.stat:last-child{border:0}
-.bigresult{text-align:center;margin:auto 0}
-.resultbox{border-radius:28px;padding:42px 18px;margin:20px 0;border:1px solid}
-.resultbox.redbox{border-color:#8c2038;background:radial-gradient(circle,#31121b,#100b0e)}
-.resultbox.greenbox{border-color:#227a5a;background:radial-gradient(circle,#102d25,#0a100e)}
-.resultteam{font-size:38px;font-weight:1000;letter-spacing:.04em}
-.count{font-size:12px;color:var(--muted);margin-top:8px}
-.countdown{font-size:100px;font-weight:1000;text-align:center;margin:auto}
-.analysis{text-align:center;margin:auto 0}
-.loader{width:72px;height:72px;border:4px solid #252c38;border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 28px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:#020204;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif}
+body{overflow-x:hidden}
+#battlefield{position:fixed;inset:0;z-index:-10;overflow:hidden;background:
+radial-gradient(circle at 50% 4%,rgba(255,255,255,.12),transparent 20%),
+radial-gradient(circle at 50% 42%,rgba(255,108,31,.16),transparent 28%),
+linear-gradient(#07070b 0 42%,#120908 75%,#050405)}
+.stadium{position:absolute;inset:0;background:
+radial-gradient(ellipse at 12% 8%,rgba(255,255,255,.18),transparent 18%),
+radial-gradient(ellipse at 88% 8%,rgba(255,255,255,.18),transparent 18%),
+linear-gradient(105deg,transparent 20%,rgba(255,255,255,.045) 20.5%,transparent 22%),
+linear-gradient(75deg,transparent 78%,rgba(255,255,255,.045) 78.5%,transparent 80%);opacity:.9}
+.fire{position:absolute;left:-10%;right:-10%;bottom:-8%;height:48%;filter:blur(11px);background:
+radial-gradient(ellipse at 9% 100%,rgba(255,62,24,.74),transparent 24%),
+radial-gradient(ellipse at 30% 100%,rgba(255,145,22,.54),transparent 25%),
+radial-gradient(ellipse at 52% 100%,rgba(255,49,19,.58),transparent 24%),
+radial-gradient(ellipse at 76% 100%,rgba(255,132,18,.56),transparent 25%),
+radial-gradient(ellipse at 95% 100%,rgba(255,52,22,.66),transparent 24%);
+animation:firePulse 2.8s ease-in-out infinite alternate}
+@keyframes firePulse{to{transform:translateY(-16px) scale(1.07);filter:blur(8px)}}
+.embers{position:absolute;inset:-30% 0 0;background-image:
+radial-gradient(circle,rgba(255,218,135,.95) 0 1px,transparent 2px),
+radial-gradient(circle,rgba(255,75,40,.95) 0 1.5px,transparent 2.5px),
+radial-gradient(circle,rgba(255,255,255,.55) 0 1px,transparent 2px);
+background-size:77px 113px,123px 159px,151px 191px;opacity:.72;animation:rise 13s linear infinite}
+@keyframes rise{from{transform:translateY(180px)}to{transform:translateY(-220px)}}
+.castle{position:absolute;left:-5%;right:-5%;bottom:0;height:39%;background:rgba(0,0,0,.92);clip-path:polygon(0 73%,5% 59%,10% 64%,15% 43%,20% 62%,26% 30%,31% 56%,36% 37%,41% 58%,46% 17%,50% 43%,55% 20%,60% 60%,66% 35%,72% 59%,78% 37%,84% 62%,90% 45%,96% 64%,100% 55%,100% 100%,0 100%)}
+.vignette{position:absolute;inset:0;background:radial-gradient(circle,transparent 36%,rgba(0,0,0,.72) 100%)}
+.app{width:min(100%,570px);min-height:100vh;margin:auto;padding:18px 16px 38px;position:relative}
+.screen{display:none;min-height:calc(100vh - 56px);animation:enter .34s ease}
+.screen.active{display:flex;flex-direction:column}
+@keyframes enter{from{opacity:0;transform:translateY(10px) scale(.992)}to{opacity:1;transform:none}}
+.eyebrow{font-size:10px;font-weight:900;letter-spacing:.22em;color:#b9c2ce;text-transform:uppercase}
+.hero{margin:auto 0;text-align:center}
+.title{font-size:48px;font-weight:1000;line-height:.91;letter-spacing:-.055em;margin:14px 0 9px;text-shadow:0 0 30px rgba(255,255,255,.08)}
+.final{font-size:11px;letter-spacing:.34em;font-weight:1000;color:var(--gold);margin-top:10px}
+.sub{font-size:15px;line-height:1.75;color:var(--muted)}
+.duel{display:flex;align-items:center;justify-content:center;gap:9px;margin:22px 0 26px}
+.chip{padding:10px 13px;border-radius:999px;font-size:13px;font-weight:1000;letter-spacing:.05em;border:1px solid var(--line);backdrop-filter:blur(12px)}
+.chip.white{background:rgba(235,246,255,.12);box-shadow:0 0 30px rgba(207,228,255,.14)}
+.chip.red{background:rgba(255,56,46,.16);color:#ffd7d3;box-shadow:0 0 30px rgba(255,56,46,.18)}
+.vs{font-weight:1000;color:#919baa;font-size:12px}
+button,select{width:100%;font:inherit;border-radius:16px;padding:16px}
+button{border:0;font-weight:1000;cursor:pointer}
+.primary{background:linear-gradient(135deg,#fff,#d8eaff);color:#06080b;box-shadow:0 14px 38px rgba(177,213,255,.18)}
+.redbtn{background:linear-gradient(135deg,#9f1713,#f04433);color:#fff;box-shadow:0 14px 38px rgba(255,56,46,.22)}
+.ghost{margin-top:10px;color:#fff;background:rgba(12,14,20,.78);border:1px solid var(--line)}
+.card{margin:16px 0;padding:18px;border-radius:23px;background:rgba(11,13,19,.82);border:1px solid var(--line);box-shadow:0 14px 48px rgba(0,0,0,.3);backdrop-filter:blur(14px)}
+select{color:#fff;background:#0f1219;border:1px solid var(--line)}
+.analysis{margin:auto 0;text-align:center}
+.loader{width:82px;height:82px;margin:0 auto 29px;border-radius:50%;border:4px solid rgba(255,255,255,.12);border-top-color:#fff;box-shadow:0 0 35px rgba(255,132,63,.18);animation:spin .72s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.analysisline{min-height:28px;font-weight:800;letter-spacing:.04em}
-.reason{line-height:1.8;color:#c4cbd5}
-.rosters{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.roster{padding:15px;border-radius:16px;border:1px solid var(--line)}
-.roster h3{margin:0 0 10px}
-.member{font-size:13px;padding:7px 0;border-bottom:1px solid #202631}
-.member:last-child{border:0}
-.footer{font-size:11px;color:#626c7b;text-align:center;margin-top:20px}
-
-/* Battle / Clash-style atmosphere */
-body{
-  overflow-x:hidden;
-  background:
-    radial-gradient(circle at 50% 35%, rgba(255,80,25,.16), transparent 30%),
-    radial-gradient(circle at 12% 70%, rgba(255,30,70,.12), transparent 28%),
-    radial-gradient(circle at 88% 65%, rgba(40,170,255,.10), transparent 28%),
-    #050608;
-}
-.battle-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.battle-bg:before{
-  content:"";position:absolute;inset:-15%;
-  background:
-    repeating-linear-gradient(115deg,transparent 0 55px,rgba(255,255,255,.025) 56px 58px),
-    radial-gradient(circle at 50% 55%,rgba(255,110,30,.13),transparent 32%),
-    radial-gradient(circle at 20% 80%,rgba(255,35,65,.12),transparent 24%),
-    radial-gradient(circle at 80% 80%,rgba(20,130,255,.10),transparent 24%);
-  transform:rotate(-4deg);
-}
-.battle-bg:after{
-  content:"";position:absolute;left:-10%;right:-10%;bottom:5%;
-  height:42%;
-  background:
-    linear-gradient(155deg,transparent 0 35%,rgba(0,0,0,.82) 36% 100%),
-    linear-gradient(25deg,transparent 0 35%,rgba(0,0,0,.7) 36% 100%);
-  clip-path:polygon(0 55%,10% 42%,18% 53%,29% 28%,38% 48%,48% 18%,58% 43%,70% 24%,80% 49%,90% 30%,100% 48%,100% 100%,0 100%);
-}
-.embers{
-  position:absolute;inset:0;opacity:.55;
-  background-image:
-    radial-gradient(circle,rgba(255,177,77,.9) 0 1px,transparent 2px),
-    radial-gradient(circle,rgba(255,70,45,.7) 0 1px,transparent 2px);
-  background-size:73px 91px,117px 133px;
-  animation:embers 12s linear infinite;
-}
-@keyframes embers{from{transform:translateY(40px)}to{transform:translateY(-120px)}}
-.vignette{position:absolute;inset:0;background:radial-gradient(circle,transparent 35%,rgba(0,0,0,.62) 100%)}
-.app{position:relative}
-.screen{cursor:pointer}
-button,select{cursor:pointer;position:relative;z-index:3}
-.card{box-shadow:0 10px 35px rgba(0,0,0,.32)}
-.resultbox{box-shadow:0 0 45px rgba(255,70,50,.12)}
-.redbox{box-shadow:0 0 55px rgba(255,49,88,.2)}
-.greenbox{box-shadow:0 0 55px rgba(64,224,160,.16)}
-.screen.active:after{
-  content:"TAP TO CONTINUE";
-  position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
-  font-size:9px;letter-spacing:.2em;color:#697382;pointer-events:none;
-}
-#select.active:after,#status.active:after{display:none}
-@media (min-width:700px){.app{max-width:560px}}
+.analysisLine{font-weight:1000;letter-spacing:.07em;min-height:30px}
+.countdown{margin:auto;text-align:center;font-size:108px;font-weight:1000;line-height:1;text-shadow:0 0 40px rgba(255,83,41,.28);animation:beat .8s ease}
+@keyframes beat{50%{transform:scale(1.08)}}
+.playerName{font-size:23px;font-weight:1000;margin:10px 0 2px}
+.resultBox{margin:18px 0;padding:30px 17px;border-radius:29px;border:1px solid var(--line)}
+.resultBox.white{background:radial-gradient(circle at 50% 0,rgba(224,240,255,.25),rgba(10,13,19,.97) 58%);box-shadow:0 0 60px rgba(194,224,255,.2)}
+.resultBox.red{background:radial-gradient(circle at 50% 0,rgba(255,87,59,.29),rgba(19,8,8,.98) 58%);box-shadow:0 0 60px rgba(255,56,46,.23)}
+.teamName{font-size:36px;font-weight:1000;line-height:1.05}
+.tag{margin-top:11px;font-size:13px;font-weight:900;letter-spacing:.06em;color:#cbd2dd}
+.badge{display:inline-block;margin-top:12px;padding:8px 12px;border-radius:999px;font-size:10px;font-weight:1000;letter-spacing:.18em;border:1px solid var(--line)}
+.captain{margin-top:12px;padding:11px;border-radius:14px;font-size:11px;font-weight:1000;letter-spacing:.16em}
+.white .captain{background:rgba(221,239,255,.11);color:#e9f6ff}
+.red .captain{background:rgba(255,56,46,.14);color:#ffd8d4}
+.profile{text-align:left;line-height:1.95;font-size:15px;color:#e0e4eb}
+.profile::first-letter{font-size:1.15em}
+.note{font-size:11px;line-height:1.6;color:#7f8998;text-align:center;margin-top:15px}
+.rewards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.reward{padding:15px 12px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid var(--line);font-size:12px}
+.reward b{display:block;font-size:16px;margin-top:5px}
+.rosterTitle{font-size:12px;letter-spacing:.15em;font-weight:1000;margin-bottom:10px}
+.roster{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.member{padding:11px;border-radius:14px;background:rgba(255,255,255,.045);font-size:12px;border:1px solid rgba(255,255,255,.06)}
+.member span{display:block;font-size:10px;color:#95a0ae;margin-top:4px}
+.divider{height:1px;background:var(--line);margin:14px 0}
+.small{font-size:12px;color:#9ca6b4;line-height:1.75}
+.screen.active:after{content:"TAP TO CONTINUE";position:fixed;bottom:8px;left:50%;transform:translateX(-50%);font-size:8px;letter-spacing:.22em;color:#697483;pointer-events:none}
+#select.active:after,#profile.active:after,#armies.active:after{display:none}
+.flash{position:fixed;inset:0;background:#fff;z-index:50;opacity:0;pointer-events:none}
+.flash.go{animation:flash .45s ease}
+@keyframes flash{0%{opacity:0}35%{opacity:.9}100%{opacity:0}}
+@media (max-width:370px){.title{font-size:41px}.teamName{font-size:31px}}
 </style>
 </head>
 <body>
-<div class="battle-bg"><div class="embers"></div><div class="vignette"></div></div>
+<div id="battlefield">
+  <div class="stadium"></div><div class="fire"></div><div class="embers"></div><div class="castle"></div><div class="vignette"></div>
+</div>
+<div id="flash" class="flash"></div>
 <div class="app">
 
 <section id="home" class="screen active">
-  <div class="logo">CLAN WAR // SPECIAL EVENT</div>
+  <div class="eyebrow">CLAN WAR // CHAMPIONSHIP NIGHT</div>
   <div class="hero">
-    <div class="label">TEAM DETERMINATION</div>
-    <h1>SOMMELIER<br><span style="font-size:26px;color:#707987">VS</span><br>MELIO</h1>
-    <div class="vs"><span class="team red">ソムリエ</span><span class="divider"></span><span class="team green">メリオ</span></div>
-    <p class="sub">紅白戦・運命の判定<br>あなたの所属チームを確認してください。</p>
+    <div class="final">THE FINAL</div>
+    <div class="title">SOMMELIER<br><span style="font-size:.45em;color:#8d97a5">VS</span><br>MELIO</div>
+    <div class="duel">
+      <div class="chip white">⚪ ソムリエ</div><div class="vs">VS</div><div class="chip red">🔴 メリオ</div>
+    </div>
+    <p class="sub">白軍と赤軍、26人の最終決戦。<br>名前を選び、運命の所属先を確認せよ。</p>
     <button class="primary" onclick="show('select')">TEAM CHECK</button>
+    <button class="ghost" onclick="show('armies')">全軍勢を見る（ネタバレ）</button>
   </div>
-  <div class="footer">PREVIEW // 11 PLAYERS REGISTERED</div>
+  <div class="note">26 PLAYERS // 13 VS 13 // WINNING TEAM: PASS // BEST ATTACKER AWARD</div>
 </section>
 
 <section id="select" class="screen">
-  <div class="logo">TEAM CHECK</div>
+  <div class="eyebrow">PLAYER IDENTIFICATION</div>
   <div class="hero">
-    <div class="label">PLAYER IDENTIFICATION</div>
-    <h2>自分の名前を選択</h2>
-    <p class="sub">選択した後、あなたのチームを判定します。</p>
-    <div class="card">
-      <select id="player">
-        <option value="">プレイヤーを選択...</option>
-      </select>
-    </div>
-    <button class="primary" onclick="startCheck()">判定開始</button>
+    <h2 style="font-size:31px;margin:8px 0 10px">自分の名前を選択</h2>
+    <p class="sub">チーム名はここでは表示されません。<br>選んだらそのまま判定開始。</p>
+    <div class="card"><select id="player"><option value="">プレイヤーを選択...</option></select></div>
+    <button class="primary" onclick="start()">判定開始</button>
     <button class="ghost" onclick="show('home')">戻る</button>
   </div>
 </section>
@@ -151,179 +131,161 @@ button,select{cursor:pointer;position:relative;z-index:3}
 <section id="analysis" class="screen">
   <div class="analysis">
     <div class="loader"></div>
-    <div class="label">SYSTEM ANALYSIS</div>
-    <div id="analysisLine" class="analysisline">PLAYER IDENTIFIED...</div>
+    <div class="eyebrow">BATTLEFIELD ANALYSIS</div>
+    <div id="analysisLine" class="analysisLine">PLAYER IDENTIFIED...</div>
   </div>
 </section>
 
-<section id="countdown" class="screen">
-  <div class="countdown" id="num">3</div>
-</section>
+<section id="count" class="screen"><div id="countNum" class="countdown">3</div></section>
 
 <section id="result" class="screen">
-  <div class="bigresult">
-    <div class="label">YOUR TEAM HAS BEEN DECIDED</div><div id="resultPlayer" style="font-size:20px;font-weight:900;margin:10px 0 4px"></div>
-    <div id="resultBox" class="resultbox">
-      <div id="resultTeam" class="resultteam"></div>
-      <div class="count">PROVISIONAL ASSIGNMENT // PREVIEW</div>
-    </div>
-    <button class="primary" onclick="show('why')">WHY THIS TEAM?</button>
-    <button class="ghost" onclick="show('status')">現在の確認状況を見る</button>
-  </div>
-</section>
-
-<section id="why" class="screen">
-  <div class="logo">WHY THIS TEAM?</div>
   <div class="hero">
-    <div class="label">FORMATION LOGIC</div>
-    <h2>なぜこのチームなのか？</h2>
-    <div class="card">
-      <div class="reason">
-        <div id="personalReason">プレイヤーごとの配置理由を表示します。</div>
-        <br><b>※ 現在は11人だけを入れた途中経過版です。</b><br>
-        30人揃った段階で全体バランスを見て最終調整します。
-      </div>
+    <div class="eyebrow">YOUR FRONT LINE</div>
+    <div id="resultPlayer" class="playerName"></div>
+    <div id="resultBox" class="resultBox">
+      <div id="resultTeam" class="teamName"></div>
+      <div id="resultTag" class="tag"></div>
+      <div id="resultRole" class="badge"></div>
+      <div id="captainBanner"></div>
     </div>
-    <button class="primary" onclick="show('status')">確認状況を見る</button>
-  </div>
-</section>
-
-<section id="status" class="screen">
-  <div class="logo">CHECK STATUS</div>
-  <div class="hero">
-    <div class="label">ROSTER PROGRESS</div>
-    <h2><span id="checked">11</span> / 30 REGISTERED</h2>
-    <p class="sub">現在は11人分まで登録済み。残り19人は追加予定です。</p>
-    <div class="progress"><i id="bar"></i></div>
-    <div class="card">
-      <div class="stat"><span>ソムリエ（暫定）</span><b id="redCount">0</b></div>
-      <div class="stat"><span>メリオ（暫定）</span><b id="greenCount">0</b></div>
-      <div class="stat"><span>未登録</span><b id="unknown">19</b></div>
-    </div>
-    <button class="primary" onclick="confirmAndReveal()">途中経過について</button>
+    <button class="primary" onclick="show('profile')">PLAYER PROFILE / WHY?</button>
     <button class="ghost" onclick="show('home')">トップへ</button>
   </div>
 </section>
 
-<section id="final" class="screen">
-  <div class="logo">FINAL REVEAL</div>
+<section id="profile" class="screen">
+  <div class="eyebrow">PLAYER INTRODUCTION</div>
   <div class="hero">
-    <div class="label">30 / 30 PLAYERS CONFIRMED</div>
-    <h2>全チーム公開</h2>
-    <div class="rosters">
-      <div class="roster">
-        <h3 class="red">ソムリエ</h3>
-        <div id="redRoster"></div>
-      </div>
-      <div class="roster">
-        <h3 class="green">メリオ</h3>
-        <div id="greenRoster"></div>
-      </div>
+    <h2 id="profileName" style="font-size:30px;margin:9px 0 4px"></h2>
+    <div id="profileTeam" class="small"></div>
+    <div class="card"><div id="profileText" class="profile"></div></div>
+    <div class="card">
+      <div class="rosterTitle">WHY THIS TEAM?</div>
+      <div id="whyText" class="profile"></div>
+    </div>
+    <button class="redbtn" onclick="show('armies')">全軍勢を見る</button>
+    <button class="ghost" onclick="show('select')">別のプレイヤーを見る</button>
+  </div>
+</section>
+
+<section id="armies" class="screen">
+  <div class="eyebrow">FINAL ROSTER // SPOILER</div>
+  <div class="hero">
+    <h2 style="font-size:31px;margin:9px 0 8px">全軍勢</h2>
+    <p class="sub">白軍13名 vs 赤軍13名。<br>ここから先は完全ネタバレ。</p>
+    <div class="card">
+      <div class="rosterTitle">⚪ SOMMELIER — WHITE ARMY</div>
+      <div id="whiteRoster" class="roster"></div>
     </div>
     <div class="card">
-      <div class="label">REWARDS</div>
-      <div class="stat"><span>🏆 勝利チーム</span><b>PASS</b></div>
-      <div class="stat"><span>⚔ BEST ATTACKER</span><b>個人賞</b></div>
+      <div class="rosterTitle">🔴 MELIO — RED ARMY</div>
+      <div id="redRoster" class="roster"></div>
     </div>
+    <div class="card">
+      <div class="rosterTitle">REWARDS</div>
+      <div class="rewards">
+        <div class="reward">🏆 勝利チーム<b>PASS</b></div>
+        <div class="reward">⚔ 個人賞<b>BEST ATTACKER</b></div>
+      </div>
+    </div>
+    <button class="primary" onclick="show('home')">トップへ戻る</button>
   </div>
 </section>
 
 </div>
-
 <script>
-// 仮データ：01〜15 = 上位、16〜25 = 中位、26〜30 = 下位
-const players = [{"id": "01", "name": "リンカーン", "level": "上位", "team": "ソムリエ", "reason": "クラン最強格。スーパーボウラーを極めた絶対的エース。チームの軸として火力を最大化するため、ソムリエへ。"}, {"id": "02", "name": "V.V.", "level": "上位", "team": "メリオ", "reason": "リンカーンに次ぐ実力者。ドラゴン編成で高い破壊力を発揮する主力として、メリオのエース枠へ。"}, {"id": "03", "name": "いちご姫", "level": "上位", "team": "メリオ", "reason": "クラン上位勢の一角。V.V.の流れを受け継ぎ、星さんから学んだ攻撃センスも武器。上位火力を厚くするためメリオへ。"}, {"id": "04", "name": "こむぎ", "level": "上位", "team": "ソムリエ", "reason": "スロワーを軸に、自分の得意戦術で安定して攻められるプレイヤー。戦術の幅を持たせるためソムリエへ。"}, {"id": "05", "name": "てやたん", "level": "上位", "team": "ソムリエ", "reason": "上手さと面白さを兼ね備えたムードメーカー。戦力だけでなくチームの空気も動かせる存在としてソムリエへ。"}, {"id": "06", "name": "しちみ", "level": "上位", "team": "メリオ", "reason": "派手さより安定感。攻撃をきっちりまとめられる計算しやすい戦力として、メリオの土台を支える役へ。"}, {"id": "07", "name": "Yuki", "level": "上位", "team": "ソムリエ", "reason": "最上位勢には一歩譲るものの、十分に頼れる実力者。堅実な攻撃でソムリエの中盤戦力を支える。"}, {"id": "08", "name": "りょう", "level": "上位", "team": "メリオ", "reason": "複数戦術に対応できるユーティリティープレイヤー。相手配置に合わせた柔軟性を買ってメリオへ。"}, {"id": "09", "name": "Yoluha", "level": "上位", "team": "ソムリエ", "reason": "練習を重ねるほど伸びている成長株。勢いと伸びしろをチームの爆発力につなげるためソムリエへ。"}, {"id": "10", "name": "いらちお", "level": "上位", "team": "メリオ", "reason": "最近は少し飽きが来ているものの、本来の地力は高い。経験値と元々の実力を見込んでメリオへ。"}, {"id": "11", "name": "レム", "level": "上位", "team": "ソムリエ", "reason": "古参としてクラクラをよく知る知識型プレイヤー。経験と判断力でチームを支える存在としてソムリエへ。"}];
-
-// 試作の固定チーム。
-// 後から実際の30人と実力区分を入れて、最終編成に差し替え可能。
-const redIds = ["01", "04", "05", "07", "09", "11"];
-const greenIds = ["02", "03", "06", "08", "10"];
-
-const sel=document.getElementById('player');
-players.forEach(p=>{
-  const o=document.createElement('option');
-  o.value=p.id;o.textContent=`${p.id}  ${p.name}`;
-  sel.appendChild(o);
+const players = [{"id": "01", "name": "リンカーン", "team": "ソムリエ", "role": "ACE", "tag": "スーパーボウラーの神", "profile": "クラン最強格。スーパーボウラーを握らせたら止まらない、説明不要の火力担当。相手からすれば当たりたくない相手の筆頭で、味方からすれば「とりあえずこの人がいればなんとかなる」枠。大事な場面でもしっかり仕事をしてくれる、まさにチームの顔。真面目に強いのに存在感までしっかりデカい。こういうやつがいるチームは、だいたい怖い。"}, {"id": "02", "name": "V.V.", "team": "メリオ", "role": "ACE", "tag": "ドラゴン無双", "profile": "リンカーンに次ぐ実力者で、ドラゴン編成を武器に高い破壊力を叩き出す主力。雑に強いのではなく、ちゃんと形にして壊してくるのが厄介なところ。いちご姫の師匠ポジでもあり、影響力までしっかりある。安定感と迫力を両立できる、かなり頼れる上位勢。メリオ軍の赤い火力枠として、相手からすると普通に嫌な存在。"}, {"id": "03", "name": "いちご姫", "team": "メリオ", "role": "ELITE", "tag": "上位勢のキッズ枠", "profile": "クラン上位勢の一角で、V.V.の弟子的なポジションにいるプレイヤー。星さんというプロのキッズという肩書きまで持っていて、すでに話題性が強い。若さと勢いだけでなく、しっかり攻撃力もあるから侮れない。上位勢らしい火力で試合を荒らせるポテンシャルあり。将来性まで込みで見ても、普通に怖いタイプ。"}, {"id": "04", "name": "こむぎ", "team": "ソムリエ", "role": "TACTICIAN", "tag": "スロワー職人", "profile": "スロワーを主戦術に据えて、自分の得意分野でしっかり攻めていくタイプ。派手に暴れるというより、形を作って堅実に結果を残すプレイヤー。「まあ上手い」で済ませるにはもったいないくらいには、ちゃんと戦える。得意戦術がはっきりしている人はイベント戦で強い。白軍に戦術の幅を持たせる、静かな仕事人。"}, {"id": "05", "name": "てやたん", "team": "ソムリエ", "role": "WILDCARD", "tag": "上手いしおもろい", "profile": "実力もあるし、おもろさもある、便利すぎるタイプ。ムードメーカーかと思いきや、攻撃までちゃんとやれるのが少しずるい。派手すぎるわけではないのに、気づけば流れを持っていく力がある。真面目すぎる紅白戦にしたくないなら、こういう存在はかなりデカい。空気を温めながら星も取る、イベント向きの戦力。"}, {"id": "06", "name": "しちみ", "team": "メリオ", "role": "ANCHOR", "tag": "安定担当", "profile": "派手な演出よりも、きっちり仕事をこなす安定型プレイヤー。攻撃をまとめる力があって、計算しやすい戦力なのが大きな魅力。こういう人がいるチームはブレにくいし、試合全体も作りやすい。爆発力一点ではなく、土台としての価値が高いタイプ。メリオ軍の基盤を支える、信頼の一枚。"}, {"id": "07", "name": "Yuki", "team": "ソムリエ", "role": "CORE", "tag": "頼れる堅実派", "profile": "最上位勢には一歩譲るかもしれないが、しっかり戦力として頼れるプレイヤー。堅実な攻撃が持ち味で、チームに安定感をもたらしてくれる。大崩れしにくいタイプは紅白戦だとかなり助かる。目立ちすぎなくても、しっかり勝負に関与できる強さがある。白軍の中盤を支える、ちょうどいい強さの持ち主。"}, {"id": "08", "name": "りょう", "team": "メリオ", "role": "UTILITY", "tag": "何でもできる", "profile": "色々な戦術に対応できるユーティリティープレイヤー。「こいつ何でもできるな？」と思わせる柔軟性が持ち味で、配置次第で役割を変えられるのが強い。尖りすぎない分、どんな場面でも仕事を持てる。イベント戦ではこういう器用な存在が本当にありがたい。派手さ以上に便利さで輝く、赤軍の万能枠。"}, {"id": "09", "name": "Yoluha", "team": "ソムリエ", "role": "RISING", "tag": "努力型成長株", "profile": "練習を重ねるごとに確実に伸びている、分かりやすい成長株。スキルを磨けている実感があって、今かなり勢いがある。こういう「最近強くなってるやつ」はイベントで一気に化けることがある。まだまだ伸びしろもあって、楽しみな存在。白軍に爆発力と未来を持ち込む成長枠。"}, {"id": "10", "name": "いらちお", "team": "メリオ", "role": "VETERAN", "tag": "元強者", "profile": "最近は少し飽きが来ているらしいが、元々の実力はしっかり高いプレイヤー。モチベに波があっても、地力がある人はやっぱり怖い。経験値があるからこそ、ハマった時にはちゃんと上位らしい攻撃を見せてくる。「本気を出したら強い」というロマンをまだ残しているタイプ。赤軍に眠る古豪枠。"}, {"id": "11", "name": "レム", "team": "ソムリエ", "role": "STRATEGIST", "tag": "古参の知識人", "profile": "古参プレイヤーとしてクラクラをよく知っている、知識型の戦力。長くやってきた経験値があるからこそ、判断の重みが違う。派手さよりも理解度で支えるタイプで、こういう人がいるとチーム全体の安心感が増す。古参なのにちゃんと現役で頼れるのは普通に偉い。白軍の頭脳寄りポジション。"}, {"id": "12", "name": "あーる", "team": "メリオ", "role": "RISING", "tag": "V.V.の本弟子", "profile": "V.V.の“本当の弟子”を名乗る、ドラゴン修行中の実力者。最近はそのドラゴンがかなり形になってきていて、明らかに一段階覚醒し始めている。まだ村の伸びしろは残しているが、それを差し引いても攻めの感覚はかなり良い。「村が完成したらもっと怖いタイプ」の典型。弟子ポジなのに、気づいたら師匠に並ぶんじゃないかという空気を少しずつ出してきている。"}, {"id": "13", "name": "チノ", "team": "ソムリエ", "role": "SPECIALIST", "tag": "スパネクの特異点", "profile": "村の強さだけ見たらまだ発展途上、でも攻めを見るとしっかり上手い。特にスパネクという独自色のある戦術を持っていて、その特異性がかなり面白い。正直「村弱い」が二回出てくるくらいには課題も分かりやすいが、それでも攻めのセンスは光る。川崎住みという急な生活感まで含めて、キャラが立っているのも強い。まだ完成形ではないのに、すでに自分の色を持っているのはかなり魅力的。"}, {"id": "14", "name": "ラピス", "team": "メリオ", "role": "WILDCARD", "tag": "迷走する上位勢", "profile": "上位勢の一角でありながら、現在は絶賛迷走中。ただ、その迷い込み方すらネタになるのがラピスらしさで、実力があるからこそ余計に目立つ。スーパーボウラー使いとしての地力は確かで、ハマった時の破壊力はやはり高い。一方でツボが浅すぎるという、対人戦ならではの愛され弱点も完備。調子を掴むか、また違う方向へ迷うか、その不安定さまで込みで見ていて面白い存在。"}, {"id": "15", "name": "フリーダム", "team": "ソムリエ", "role": "VETERAN", "tag": "古代人スパボ", "profile": "いちご姫の友達という入り口から、しっかり自分の実力で存在感を出しているプレイヤー。村はやや控えめでも、攻めに関しては周りにしっかり並べるだけの力を持っている。特にデュークウォークスパボという“古代人”感のある渋い戦術を語れるのが強い。流行だけではなく、自分なりの型を持っているタイプはやっぱり頼もしい。派手すぎはしないが、気づけばしっかり仕事をしている戦力。"}, {"id": "16", "name": "ライト", "team": "メリオ", "role": "MASCOT", "tag": "イケボ四天王", "profile": "ピカピカ輝いているという表現がよく似合う、雰囲気の明るいプレイヤー。下位枠ではありつつも、ただ控えめなだけで終わらない独特の存在感がある。そして何より、声がいい。イケボ四天王の肩書きは伊達じゃない。楽しくクラクラをやっている感じが前面に出ていて、その空気感はチームにもいい影響を与える。戦力面だけじゃなく、イベントをいい雰囲気にしてくれるタイプとしてかなり大事。"}, {"id": "17", "name": "白紙", "team": "ソムリエ", "role": "TACTICIAN", "tag": "夜村の住人", "profile": "一生夜村をやっていることでおなじみの、独自路線プレイヤー。若さもあって発想が柔らかく、色々な戦術に手を出せるのは大きな強み。だからこそ「早く昼村育ててくれ」という周囲の願いも、もはやお約束になっている。型に縛られすぎず戦い方を広げられるのは、イベント戦ではかなり面白いポイント。まだまだ伸びる余地が大きく、今後どう化けるか楽しみな存在でもある。"}, {"id": "18", "name": "ダブみ", "team": "メリオ", "role": "RISING", "tag": "ウマ好き成長株", "profile": "とにかくウマが好き、という強烈な個性を持つプレイヤー。いろいろな戦術を自分で試しながら、少しずつ自分の形を探している段階にある。まだ発展途上ではあるが、だからこそこれからの成長に期待したくなるタイプ。貢ぎ癖がやばいらしいという情報まで含めて、キャラクター性はかなり濃い。上手くハマった時に一気に伸びそうな“化け待ち枠”としてかなり面白い存在。"}, {"id": "19", "name": "犬鳴村", "team": "ソムリエ", "role": "UTILITY", "tag": "寄り道中の器用人", "profile": "もともとは上手かったのに、飽きによって少しずつ精度が落ちてきたという、なかなかリアルな事情持ち。さらに彼女との時間が充実しすぎていて、クラクラに割く熱量が薄れているのもまた人間味がある。とはいえ、完全に何もできないわけではなく、一応ユーティリティとしての器用さは残っている。本気モードに戻ればまだやれる、そんな潜在能力残ってる組。今は少し寄り道中だが、だからこそたまに見せる仕事が妙に光るタイプ。"}, {"id": "20", "name": "しょうゆ", "team": "メリオ", "role": "SUPPORT", "tag": "援軍報告の達人", "profile": "派手さよりも、周りを見て動けるタイプの良さが詰まっているプレイヤー。援軍報告をきちんとしてくれるあたりに、視野の広さと丁寧さがしっかり出ている。クラクラ愛もかなり感じられて、ゲームそのものをちゃんと楽しんでいるのが伝わってくる。こういう見えにくいけど助かる人は、チーム戦になると本当に価値が高い。目立ちすぎなくても、確実にチームの土台を支えるタイプとしてかなり偉い。"}, {"id": "21", "name": "やめてくれ", "team": "ソムリエ", "role": "WILDCARD", "tag": "危ない強者", "profile": "名前からしてすでに普通ではない、かなり濃いキャラの持ち主。やばいやつという評価を受けつつも、攻めはしっかり上手いドラゴンプレイヤーの一人。つまり「危なそうに見えてちゃんと戦える」という、一番扱いに困るけど一番面白いタイプ。村はまだまだ育成してほしいところだが、攻撃面のセンスがあるから余計にもったいなさもある。完成したら本当に厄介、今の時点でも十分クセが強い存在。"}, {"id": "22", "name": "なつ", "team": "メリオ", "role": "DRAGON CORE", "tag": "TH15上位キープ", "profile": "下位枠ながら、タウン15で上位をキープしている時点でかなり偉い。ドラゴンプレイヤーとしての実力もあり、15帯の中ではランキングに入るほどの腕前を持つ。単純な上下だけでは測れない、自分の土俵でしっかり勝てるタイプの強さがある。派手に見せるというより、ちゃんと結果で存在感を出してくるのが魅力。下位評価に収まりきらない意地を感じる、侮れない戦力。"}, {"id": "23", "name": "さんた", "team": "メリオ", "role": "STABLE", "tag": "家庭持ち戦士", "profile": "家庭を持ちながらクラクラも続けている、かなり渋くて好感度の高いプレイヤー。フレンドリーな人柄がありつつ、攻めもしっかり戦えるレベルにまとまっている。ただ優しいだけじゃなく、ちゃんと星を狙いにいけるところがいい。イベントの空気を壊さず、むしろ丸くしながら必要な場面では仕事もできる。落ち着きと戦力のバランスがいい、大人の頼れるクラクラプレイヤー。"}, {"id": "24", "name": "市原愛弓", "team": "ソムリエ", "role": "RISING", "tag": "成長するドラゴン使い", "profile": "現時点では攻めにまだ課題があるものの、日々成長しているのがはっきり見えるプレイヤー。ドラゴンを中心に戦っていて、少しずつ自分の型を作っていく段階にある。特にヒーローの使い方が上手いのはかなり大きく、伸びる人の匂いがちゃんとある。今はまだ粗さもあるが、その分だけ今後の変化が楽しみなタイプ。完成度より伸びしろ、そんな言葉がよく似合う成長枠。"}, {"id": "25", "name": "ソムリエ", "team": "ソムリエ", "role": "CAPTAIN", "tag": "白軍リーダー", "profile": "クランでもトップ5級に入る実力を持つ、スーパーボウラー使い。実力だけ見れば普通に頼れる上位勢なのだが、問題は中身。クソガキ、彼女なし、夢なし、金なしと、戦力以外のステータスがなかなか悲惨。それでも攻めになればしっかり結果を出してくるあたり、なんだかんだでリーダーを任せられる存在ではある。スパボを握れば強い、口を開けばだいたい余計なことを言う。失うものが少ない男が率いる、白きソムリエ軍。"}, {"id": "26", "name": "メリオ", "team": "メリオ", "role": "CAPTAIN", "tag": "赤軍リーダー", "profile": "かつては時代遅れとも言われるスーパーボウラーを握り続けた男。現在はスロワーへと戦術を移し、時代に適応しているように見えるが、本人は相変わらずマイペース。お酒キャラとしても定着しており、気づけばいつもレジェンド2付近をさまよっている。それでも長くやってきた経験と攻めの地力は確かで、リーダーとしての存在感は十分。レジェンド2を故郷とする男が率いる、紅きメリオ軍。"}];
+const select = document.getElementById('player');
+players.forEach(p => {
+  const o = document.createElement('option');
+  o.value = p.id;
+  o.textContent = `${p.id}　${p.name}`;
+  select.appendChild(o);
 });
 
-function show(id){
+let current = null;
+function show(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  if(id==='status') updateStatus();
-  if(id==='final') buildRosters();
+  if(id === 'armies') buildRosters();
 }
 
-let current=null;
-function startCheck(){
-  current=players.find(p=>p.id===sel.value);
-  if(!current){alert('プレイヤーを選択してください');return;}
+function start() {
+  current = players.find(p=>p.id===select.value);
+  if(!current) { alert('プレイヤーを選択してください'); return; }
   show('analysis');
-  const lines=['PLAYER IDENTIFIED...','SKILL BALANCE CHECK...','TEAM STRUCTURE ANALYZING...','FINAL DECISION...'];
-  let i=0;
-  const line=document.getElementById('analysisLine');
-  line.textContent=lines[0];
-  const timer=setInterval(()=>{
+  const lines = current.role === 'CAPTAIN'
+    ? ['CAPTAIN IDENTIFIED...','COMMANDER PROFILE LOADING...','BATTLE STANDARD LOCKED...','FINAL COMMAND READY...']
+    : ['PLAYER IDENTIFIED...','TACTICAL PROFILE CHECK...','TEAM BALANCE LOCKED...','FINAL ASSIGNMENT READY...'];
+  let i = 0;
+  const el = document.getElementById('analysisLine');
+  el.textContent = lines[0];
+  const t = setInterval(()=>{
     i++;
-    if(i<lines.length) line.textContent=lines[i];
-    else {clearInterval(timer); setTimeout(()=>runCountdown(),450);}
+    if(i < lines.length) el.textContent = lines[i];
+    else { clearInterval(t); setTimeout(runCountdown,380); }
   },650);
 }
-function runCountdown(){
-  show('countdown');
-  let n=3;
-  document.getElementById('num').textContent=n;
+
+function runCountdown() {
+  show('count');
+  let n=3; const el=document.getElementById('countNum'); el.textContent=n;
   const t=setInterval(()=>{
     n--;
-    if(n<=0){clearInterval(t);setTimeout(reveal,350);}
-    else document.getElementById('num').textContent=n;
+    if(n<=0){clearInterval(t);setTimeout(reveal,250)}
+    else el.textContent=n;
   },800);
 }
-function reveal(){
-  const team=redIds.includes(current.id)?'ソムリエチーム':'メリオチーム';
-  const box=document.getElementById('resultBox');
-  box.className='resultbox '+(team==='ソムリエチーム'?'redbox':'greenbox');
-  document.getElementById('resultTeam').textContent=team;
-  document.getElementById('resultPlayer').textContent=current.name;
-  const reasonEl=document.getElementById('personalReason');
-  if(reasonEl) reasonEl.textContent=current.reason;
+
+function reveal() {
+  document.getElementById('flash').classList.remove('go');
+  void document.getElementById('flash').offsetWidth;
+  document.getElementById('flash').classList.add('go');
+
+  const white = current.team === 'ソムリエ';
+  const box = document.getElementById('resultBox');
+  box.className = 'resultBox ' + (white ? 'white' : 'red');
+  document.getElementById('resultPlayer').textContent = current.name;
+  document.getElementById('resultTeam').textContent = white ? '⚪ SOMMELIER TEAM' : '🔴 MELIO TEAM';
+  document.getElementById('resultTag').textContent = current.tag;
+  document.getElementById('resultRole').textContent = current.role;
+
+  const cap = document.getElementById('captainBanner');
+  if(current.role === 'CAPTAIN') {
+    cap.className = 'captain';
+    cap.textContent = white ? 'WHITE COMMANDER // 白軍を率いるリーダー' : 'RED COMMANDER // 赤軍を率いるリーダー';
+  } else {
+    cap.className = ''; cap.textContent = '';
+  }
+
+  document.getElementById('profileName').textContent = current.name;
+  document.getElementById('profileTeam').textContent = white ? '⚪ SOMMELIER / WHITE ARMY' : '🔴 MELIO / RED ARMY';
+  document.getElementById('profileText').textContent = current.profile;
+
+  const teamWhy = white
+    ? `白軍ソムリエへ。${current.tag}という個性を活かしつつ、火力だけでなく戦術の幅・安定感・キャラクター性まで含めて13人全体のバランスを組んでいる。白軍は「冷静さの中に変なやつがちゃんと混ざっている」編成。勝つ時はスマートに、やらかす時は派手に。`
+    : `赤軍メリオへ。${current.tag}という持ち味を軸に、上位火力・成長枠・支援役・クセ強枠を混ぜて13人全体のバランスを組んでいる。赤軍は「燃えてるのか酔ってるのか分からないけど、とにかく前へ出る」編成。勢いで戦場を赤く染める。`;
+  document.getElementById('whyText').textContent = teamWhy;
   show('result');
 }
-function updateStatus(){
-  const registered=11;
-  document.getElementById('checked').textContent=registered;
-  document.getElementById('bar').style.width=(registered/30*100)+'%';
-  document.getElementById('redCount').textContent=redIds.length;
-  document.getElementById('greenCount').textContent=greenIds.length;
-  document.getElementById('unknown').textContent=30-registered;
-}
-function confirmAndReveal(){
-  alert('現在は11人版の途中経過です。30人揃ったら最終公開に切り替えます。');
-}
-function buildRosters(){
-  const make=(ids)=>{
-    return ids.map(id=>{
-      const p=players.find(x=>x.id===id);
-      return `<div class="member">${p.id}　${p.name}</div>`;
-    }).join('');
-  };
-  document.getElementById('redRoster').innerHTML=make(redIds);
-  document.getElementById('greenRoster').innerHTML=make(greenIds);
-}
-// Mobile-friendly: tap anywhere on non-interactive areas to advance.
-// Buttons, select boxes and links keep their normal behavior.
-const tapOrder = ['home','select','analysis','countdown','result','why','status','final'];
-document.querySelectorAll('.screen').forEach(screen=>{
-  screen.addEventListener('click', e=>{
-    if(e.target.closest('button,select,a,input')) return;
-    const id=screen.id;
-    if(id==='home') show('select');
-    else if(id==='result') show('why');
-    else if(id==='why') show('status');
-    else if(id==='final') show('home');
-  });
-});
 
+function buildRosters() {
+  const w = document.getElementById('whiteRoster'), r = document.getElementById('redRoster');
+  w.innerHTML=''; r.innerHTML='';
+  players.forEach(p=>{
+    const d=document.createElement('div');
+    d.className='member';
+    d.innerHTML=`<b>${p.id} ${p.name}</b><span>${p.role} / ${p.tag}</span>`;
+    (p.team==='ソムリエ'?w:r).appendChild(d);
+  });
+}
+
+document.querySelectorAll('.screen').forEach(s=>s.addEventListener('click',e=>{
+  if(e.target.closest('button,select,option,input,a')) return;
+  if(s.id==='home') show('select');
+  else if(s.id==='result') show('profile');
+}));
 </script>
 </body>
 </html>
