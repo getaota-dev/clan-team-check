@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOMMELIER vs MELIO | TEAM CHECK</title>
+<title>SOMMELIER vs MELIO | 11 PLAYER PREVIEW</title>
 <style>
 :root{
   --bg:#07090d; --panel:#10141c; --text:#f4f7fb; --muted:#8f9aaa;
@@ -129,7 +129,7 @@ button,select{cursor:pointer;position:relative;z-index:3}
     <p class="sub">紅白戦・運命の判定<br>あなたの所属チームを確認してください。</p>
     <button class="primary" onclick="show('select')">TEAM CHECK</button>
   </div>
-  <div class="footer">30 PLAYERS / 15 vs 15</div>
+  <div class="footer">PREVIEW // 11 PLAYERS REGISTERED</div>
 </section>
 
 <section id="select" class="screen">
@@ -162,10 +162,10 @@ button,select{cursor:pointer;position:relative;z-index:3}
 
 <section id="result" class="screen">
   <div class="bigresult">
-    <div class="label">YOUR TEAM HAS BEEN DECIDED</div>
+    <div class="label">YOUR TEAM HAS BEEN DECIDED</div><div id="resultPlayer" style="font-size:20px;font-weight:900;margin:10px 0 4px"></div>
     <div id="resultBox" class="resultbox">
       <div id="resultTeam" class="resultteam"></div>
-      <div class="count">TEAM ASSIGNMENT CONFIRMED</div>
+      <div class="count">PROVISIONAL ASSIGNMENT // PREVIEW</div>
     </div>
     <button class="primary" onclick="show('why')">WHY THIS TEAM?</button>
     <button class="ghost" onclick="show('status')">現在の確認状況を見る</button>
@@ -179,11 +179,9 @@ button,select{cursor:pointer;position:relative;z-index:3}
     <h2>なぜこのチームなのか？</h2>
     <div class="card">
       <div class="reason">
-        今回のチーム分けは完全なランダムではありません。<br><br>
-        <b>上位 15人 / 中位 10人 / 下位 5人</b> の構成をもとに、
-        それぞれのチームが大きく偏らないように編成されています。<br><br>
-        つまり、あなたの所属先は「その場のくじ」ではなく、
-        <b>紅白戦として成立するためのバランス</b>を考えて決定されています。
+        <div id="personalReason">プレイヤーごとの配置理由を表示します。</div>
+        <br><b>※ 現在は11人だけを入れた途中経過版です。</b><br>
+        30人揃った段階で全体バランスを見て最終調整します。
       </div>
     </div>
     <button class="primary" onclick="show('status')">確認状況を見る</button>
@@ -193,16 +191,16 @@ button,select{cursor:pointer;position:relative;z-index:3}
 <section id="status" class="screen">
   <div class="logo">CHECK STATUS</div>
   <div class="hero">
-    <div class="label">PLAYER CONFIRMATION</div>
-    <h2><span id="checked">0</span> / 30</h2>
-    <p class="sub">全員が確認すると、最終チーム編成が公開されます。</p>
+    <div class="label">ROSTER PROGRESS</div>
+    <h2><span id="checked">11</span> / 30 REGISTERED</h2>
+    <p class="sub">現在は11人分まで登録済み。残り19人は追加予定です。</p>
     <div class="progress"><i id="bar"></i></div>
     <div class="card">
-      <div class="stat"><span>ソムリエ</span><b id="redCount">0</b></div>
-      <div class="stat"><span>メリオ</span><b id="greenCount">0</b></div>
-      <div class="stat"><span>未確認</span><b id="unknown">30</b></div>
+      <div class="stat"><span>ソムリエ（暫定）</span><b id="redCount">0</b></div>
+      <div class="stat"><span>メリオ（暫定）</span><b id="greenCount">0</b></div>
+      <div class="stat"><span>未登録</span><b id="unknown">19</b></div>
     </div>
-    <button class="primary" onclick="confirmAndReveal()">確認を完了する</button>
+    <button class="primary" onclick="confirmAndReveal()">途中経過について</button>
     <button class="ghost" onclick="show('home')">トップへ</button>
   </div>
 </section>
@@ -234,16 +232,12 @@ button,select{cursor:pointer;position:relative;z-index:3}
 
 <script>
 // 仮データ：01〜15 = 上位、16〜25 = 中位、26〜30 = 下位
-const players = Array.from({length:30},(_,i)=>({
-  id:String(i+1).padStart(2,'0'),
-  name:`PLAYER ${String(i+1).padStart(2,'0')}`,
-  level:i<15?'上位':i<25?'中位':'下位'
-}));
+const players = [{"id": "01", "name": "リンカーン", "level": "上位", "team": "ソムリエ", "reason": "クラン最強格。スーパーボウラーを極めた絶対的エース。チームの軸として火力を最大化するため、ソムリエへ。"}, {"id": "02", "name": "V.V.", "level": "上位", "team": "メリオ", "reason": "リンカーンに次ぐ実力者。ドラゴン編成で高い破壊力を発揮する主力として、メリオのエース枠へ。"}, {"id": "03", "name": "いちご姫", "level": "上位", "team": "メリオ", "reason": "クラン上位勢の一角。V.V.の流れを受け継ぎ、星さんから学んだ攻撃センスも武器。上位火力を厚くするためメリオへ。"}, {"id": "04", "name": "こむぎ", "level": "上位", "team": "ソムリエ", "reason": "スロワーを軸に、自分の得意戦術で安定して攻められるプレイヤー。戦術の幅を持たせるためソムリエへ。"}, {"id": "05", "name": "てやたん", "level": "上位", "team": "ソムリエ", "reason": "上手さと面白さを兼ね備えたムードメーカー。戦力だけでなくチームの空気も動かせる存在としてソムリエへ。"}, {"id": "06", "name": "しちみ", "level": "上位", "team": "メリオ", "reason": "派手さより安定感。攻撃をきっちりまとめられる計算しやすい戦力として、メリオの土台を支える役へ。"}, {"id": "07", "name": "Yuki", "level": "上位", "team": "ソムリエ", "reason": "最上位勢には一歩譲るものの、十分に頼れる実力者。堅実な攻撃でソムリエの中盤戦力を支える。"}, {"id": "08", "name": "りょう", "level": "上位", "team": "メリオ", "reason": "複数戦術に対応できるユーティリティープレイヤー。相手配置に合わせた柔軟性を買ってメリオへ。"}, {"id": "09", "name": "Yoluha", "level": "上位", "team": "ソムリエ", "reason": "練習を重ねるほど伸びている成長株。勢いと伸びしろをチームの爆発力につなげるためソムリエへ。"}, {"id": "10", "name": "いらちお", "level": "上位", "team": "メリオ", "reason": "最近は少し飽きが来ているものの、本来の地力は高い。経験値と元々の実力を見込んでメリオへ。"}, {"id": "11", "name": "レム", "level": "上位", "team": "ソムリエ", "reason": "古参としてクラクラをよく知る知識型プレイヤー。経験と判断力でチームを支える存在としてソムリエへ。"}];
 
 // 試作の固定チーム。
 // 後から実際の30人と実力区分を入れて、最終編成に差し替え可能。
-const redIds = ['01','02','04','06','08','10','12','14','16','18','20','22','26','28','30'];
-const greenIds = players.map(p=>p.id).filter(id=>!redIds.includes(id));
+const redIds = ["01", "04", "05", "07", "09", "11"];
+const greenIds = ["02", "03", "06", "08", "10"];
 
 const sel=document.getElementById('player');
 players.forEach(p=>{
@@ -290,23 +284,21 @@ function reveal(){
   const box=document.getElementById('resultBox');
   box.className='resultbox '+(team==='ソムリエチーム'?'redbox':'greenbox');
   document.getElementById('resultTeam').textContent=team;
+  document.getElementById('resultPlayer').textContent=current.name;
+  const reasonEl=document.getElementById('personalReason');
+  if(reasonEl) reasonEl.textContent=current.reason;
   show('result');
 }
 function updateStatus(){
-  const checked=Number(localStorage.getItem('checkedCount')||0);
-  document.getElementById('checked').textContent=checked;
-  document.getElementById('bar').style.width=(checked/30*100)+'%';
-  // 試作品では、確認数に応じた演出用表示
-  const red=Math.round(checked/2), green=checked-red;
-  document.getElementById('redCount').textContent=red;
-  document.getElementById('greenCount').textContent=green;
-  document.getElementById('unknown').textContent=30-checked;
+  const registered=11;
+  document.getElementById('checked').textContent=registered;
+  document.getElementById('bar').style.width=(registered/30*100)+'%';
+  document.getElementById('redCount').textContent=redIds.length;
+  document.getElementById('greenCount').textContent=greenIds.length;
+  document.getElementById('unknown').textContent=30-registered;
 }
 function confirmAndReveal(){
-  let checked=Number(localStorage.getItem('checkedCount')||0);
-  if(checked<30) checked++;
-  localStorage.setItem('checkedCount',checked);
-  if(checked>=30) show('final'); else updateStatus();
+  alert('現在は11人版の途中経過です。30人揃ったら最終公開に切り替えます。');
 }
 function buildRosters(){
   const make=(ids)=>{
