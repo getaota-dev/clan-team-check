@@ -185,6 +185,113 @@ body:after{
   z-index:30;
 }
 
+
+/* ===== PRIZE SECTION ===== */
+.prize-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,214,106,.28);
+  box-shadow:
+    0 0 28px rgba(255,115,35,.10),
+    inset 0 0 30px rgba(255,255,255,.02);
+}
+.prize-card:before{
+  content:"";
+  position:absolute;inset:-40% -20% auto;
+  height:180px;
+  background:radial-gradient(circle,rgba(255,204,80,.16),transparent 65%);
+  pointer-events:none;
+}
+.prize-kicker{
+  font-size:11px;
+  font-weight:1000;
+  letter-spacing:.22em;
+  color:#ffd86f;
+  text-align:center;
+  text-shadow:0 0 14px rgba(255,130,40,.65);
+  margin-bottom:6px;
+}
+.prize-title{
+  margin:0;
+  text-align:center;
+  font-size:28px;
+  letter-spacing:.02em;
+}
+.prize-note{
+  margin:10px auto 16px;
+  text-align:center;
+  color:#c9d0da;
+  font-size:13px;
+  line-height:1.7;
+}
+.prize-list{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+}
+.prize-item{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:14px;
+  border-radius:18px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+}
+.prize-item.surprise{
+  border-color:rgba(255,211,91,.28);
+  background:
+    radial-gradient(circle at 0 0,rgba(255,198,76,.13),transparent 42%),
+    linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+}
+.prize-icon{
+  font-size:27px;
+  line-height:1;
+  flex:0 0 34px;
+  filter:drop-shadow(0 0 8px rgba(255,127,39,.3));
+}
+.prize-body{
+  min-width:0;
+  flex:1;
+}
+.prize-name{
+  font-size:16px;
+  font-weight:1000;
+  color:#fff;
+  margin-bottom:5px;
+}
+.prize-desc{
+  font-size:13px;
+  line-height:1.7;
+  color:#d5dbe4;
+}
+.prize-meta{
+  margin-top:7px;
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(255,211,91,.10);
+  color:#ffe494;
+  border:1px solid rgba(255,211,91,.16);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+.prize-footer{
+  margin-top:15px;
+  padding:13px;
+  border-radius:16px;
+  text-align:center;
+  line-height:1.7;
+  font-size:12px;
+  font-weight:900;
+  color:#fff0bf;
+  background:rgba(255,105,28,.08);
+  border:1px solid rgba(255,135,45,.16);
+}
+
 </style>
 </head>
 <body>
@@ -273,11 +380,70 @@ body:after{
       <div class="rosterTitle">🔴 MELIO — RED ARMY</div>
       <div id="redRoster" class="roster"></div>
     </div>
-    <div class="card">
-      <div class="rosterTitle">REWARDS</div>
-      <div class="rewards">
-        <div class="reward">🏆 勝利チーム<b>PASS</b></div>
-        <div class="reward">⚔ 個人賞<b>BEST ATTACKER</b></div>
+    <div class="card prize-card">
+      <div class="prize-kicker">🎁 PRIZE LINEUP 🎁</div>
+      <h3 class="prize-title">景品紹介</h3>
+      <div class="prize-note">できるだけ多くの人にチャンスを。<br><b>賞の被りはなし！</b></div>
+
+      <div class="prize-list">
+        <div class="prize-item">
+          <div class="prize-icon">🏆</div>
+          <div class="prize-body">
+            <div class="prize-name">優秀賞</div>
+            <div class="prize-desc">2回攻撃の合計破壊率が高い人。複数人いる場合は、より早く達成した人を優先。</div>
+            <div class="prize-meta">各チーム2名 / 1人 2,000円</div>
+          </div>
+        </div>
+
+        <div class="prize-item">
+          <div class="prize-icon">👑</div>
+          <div class="prize-body">
+            <div class="prize-name">リーダーイチオシ賞</div>
+            <div class="prize-desc">各チームのリーダーが「これは良かった」と絶賛したプレイヤーに贈られる特別賞。</div>
+            <div class="prize-meta">各チーム1名 / 1人 1,500円</div>
+          </div>
+        </div>
+
+        <div class="prize-item">
+          <div class="prize-icon">🌻</div>
+          <div class="prize-body">
+            <div class="prize-name">なつ賞</div>
+            <div class="prize-desc">なつさんの独断と偏見で決定。基準は当日のお楽しみ。</div>
+            <div class="prize-meta">1名 / 1,500円</div>
+          </div>
+        </div>
+
+        <div class="prize-item">
+          <div class="prize-icon">🤩</div>
+          <div class="prize-body">
+            <div class="prize-name">りょう賞</div>
+            <div class="prize-desc">99%芸人になれれば受賞チャンス。<b>わざと99%は対象外。</b></div>
+            <div class="prize-meta">芸人の人数次第</div>
+          </div>
+        </div>
+
+        <div class="prize-item">
+          <div class="prize-icon">🎡</div>
+          <div class="prize-body">
+            <div class="prize-name">ルーレット賞</div>
+            <div class="prize-desc">対戦終了後、通話内でルーレットを実施。運まで味方につけた人が勝ち。</div>
+            <div class="prize-meta">5名 / 1人 1,500円</div>
+          </div>
+        </div>
+
+        <div class="prize-item surprise">
+          <div class="prize-icon">🎉</div>
+          <div class="prize-body">
+            <div class="prize-name">サプライズ賞</div>
+            <div class="prize-desc">イベント終了後のお楽しみ。最後まで何が起こるか分からない。</div>
+            <div class="prize-meta">SECRET REWARD</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prize-footer">
+        🔥 受賞は1人1賞まで！<br>
+        より多くのメンバーに景品が行き渡るように調整します。
       </div>
     </div>
     <button class="primary" onclick="show('home')">トップへ戻る</button>
